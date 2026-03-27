@@ -1,0 +1,504 @@
+{
+  "wireless noise cancelling headphones": [
+    {
+      "product_id": 1,
+      "asin": "B08HMWZBCY",
+      "title": "Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead Headphones",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Headphones & Earbuds",
+        "key_features": ["Active noise cancellation", "30-hour battery", "Bluetooth 5.0", "Touch controls", "Foldable design"],
+        "use_case": "Premium wireless listening with best-in-class noise cancellation for travel and work",
+        "target_audience": "Frequent travelers and remote workers",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9421,
+      "rank": 1
+    },
+    {
+      "product_id": 2,
+      "asin": "B07Q9MJKBV",
+      "title": "Bose QuietComfort 45 Bluetooth Wireless Noise Cancelling Headphones",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Headphones & Earbuds",
+        "key_features": ["QuietComfort ANC", "24-hour battery", "USB-C charging", "Aware mode", "Adjustable EQ"],
+        "use_case": "All-day comfortable noise cancelling for office and commute use",
+        "target_audience": "Office workers and commuters",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9187,
+      "rank": 2
+    },
+    {
+      "product_id": 3,
+      "asin": "B09JQS53LL",
+      "title": "Apple AirPods Max Wireless Over-Ear Headphones, Active Noise Cancelling",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Headphones & Earbuds",
+        "key_features": ["Computational audio", "Transparency mode", "Spatial audio", "20-hour battery", "Premium build"],
+        "use_case": "High-fidelity wireless listening deeply integrated with Apple ecosystem",
+        "target_audience": "Apple ecosystem users and audiophiles",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9043,
+      "rank": 3
+    },
+    {
+      "product_id": 4,
+      "asin": "B07YXR553T",
+      "title": "Jabra Evolve2 85 Wireless PC Headset with Active Noise Cancellation",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Business Headsets",
+        "key_features": ["37-hour battery", "8-mic array", "ANC", "UC certified", "Busy light"],
+        "use_case": "Professional video conferencing and UC platform use",
+        "target_audience": "Business professionals and remote workers",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8812,
+      "rank": 4
+    },
+    {
+      "product_id": 5,
+      "asin": "B08C4KY7KH",
+      "title": "Sennheiser HD 450BT Wireless Headphones with Active Noise Cancellation",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Headphones & Earbuds",
+        "key_features": ["Hybrid ANC", "30-hour battery", "Foldable", "aptX codec", "Voice assistant"],
+        "use_case": "Balanced audio performance with noise cancellation at mid-range price",
+        "target_audience": "Audiophiles on a budget",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8674,
+      "rank": 5
+    },
+    {
+      "product_id": 6,
+      "asin": "B09XS7JWHH",
+      "title": "Anker Soundcore Space Q45 Adaptive Active Noise Cancelling Headphones",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Headphones & Earbuds",
+        "key_features": ["Adaptive ANC", "50-hour battery", "LDAC support", "Multipoint connection", "App control"],
+        "use_case": "Long-duration listening sessions with adaptive noise control",
+        "target_audience": "Budget-conscious consumers seeking premium features",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8521,
+      "rank": 6
+    }
+  ],
+  "gaming laptop high performance RTX": [
+    {
+      "product_id": 10,
+      "asin": "B09NZKQX9F",
+      "title": "ASUS ROG Strix G15 Gaming Laptop AMD Ryzen 9 RTX 3080 16GB RAM 1TB SSD",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Gaming Laptops",
+        "key_features": ["RTX 3080 GPU", "AMD Ryzen 9", "165Hz display", "1TB NVMe SSD", "ROG cooling"],
+        "use_case": "High-performance gaming and content creation on the go",
+        "target_audience": "PC gamers and content creators",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9312,
+      "rank": 1
+    },
+    {
+      "product_id": 11,
+      "asin": "B08HHXQF3K",
+      "title": "Razer Blade 15 Gaming Laptop Intel Core i7 RTX 3070 QHD 240Hz",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Gaming Laptops",
+        "key_features": ["RTX 3070", "240Hz QHD", "CNC aluminum chassis", "THX Spatial Audio", "Per-key RGB"],
+        "use_case": "Competitive gaming with premium build quality and high refresh display",
+        "target_audience": "Esports players and power users",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9178,
+      "rank": 2
+    },
+    {
+      "product_id": 12,
+      "asin": "B09BQLKQYV",
+      "title": "MSI GS76 Stealth Gaming Laptop Intel Core i9 RTX 3080 Ti 4K OLED",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Gaming Laptops",
+        "key_features": ["RTX 3080 Ti", "4K OLED 120Hz", "Core i9-11900H", "99.9Wh battery", "Thunderbolt 4"],
+        "use_case": "Uncompromising gaming performance with stunning 4K OLED display",
+        "target_audience": "Enthusiast gamers and 3D artists",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9034,
+      "rank": 3
+    },
+    {
+      "product_id": 13,
+      "asin": "B09PL9RXC6",
+      "title": "Lenovo Legion 5 Pro Gaming Laptop AMD Ryzen 7 RTX 3070 Ti 2560x1600 165Hz",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Gaming Laptops",
+        "key_features": ["RTX 3070 Ti", "WQXGA 165Hz IPS", "Ryzen 7 5800H", "E-shutter webcam", "AI-driven cooling"],
+        "use_case": "High refresh rate competitive gaming with AMD processing power",
+        "target_audience": "Gamers seeking performance per dollar",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8891,
+      "rank": 4
+    },
+    {
+      "product_id": 14,
+      "asin": "B08FBVVQDM",
+      "title": "Alienware m15 R6 Gaming Laptop Intel Core i7 RTX 3060 FHD 360Hz",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Gaming Laptops",
+        "key_features": ["RTX 3060", "360Hz FHD", "AlienFX lighting", "Cryo-Tech cooling", "Alienware Command Center"],
+        "use_case": "Esports-focused gaming with ultra-high-refresh-rate display",
+        "target_audience": "Competitive esports players",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8743,
+      "rank": 5
+    }
+  ],
+  "mechanical keyboard RGB gaming": [
+    {
+      "product_id": 20,
+      "asin": "B07NDMXF6F",
+      "title": "Corsair K95 RGB Platinum XT Mechanical Gaming Keyboard Cherry MX Speed",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Mechanical Keyboards",
+        "key_features": ["Cherry MX Speed switches", "Per-key RGB", "Dedicated macro keys", "USB passthrough", "Detachable wrist rest"],
+        "use_case": "Competitive gaming with ultra-fast actuation and full programmability",
+        "target_audience": "PC gamers and streamers",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9267,
+      "rank": 1
+    },
+    {
+      "product_id": 21,
+      "asin": "B09QPCXHXB",
+      "title": "SteelSeries Apex Pro TKL Wireless Mechanical Gaming Keyboard Adjustable Actuation",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Mechanical Keyboards",
+        "key_features": ["OmniPoint 2.0 switches", "Adjustable actuation 0.2-3.8mm", "Wireless 2.4GHz", "OLED display", "Compact TKL"],
+        "use_case": "Precision gaming with per-key adjustable switch sensitivity",
+        "target_audience": "Competitive FPS and MOBA players",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9089,
+      "rank": 2
+    },
+    {
+      "product_id": 22,
+      "asin": "B07FDFH6MH",
+      "title": "Razer BlackWidow V3 Mechanical Gaming Keyboard Green Clicky Switches",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Mechanical Keyboards",
+        "key_features": ["Razer Green switches", "Chroma RGB", "USB passthrough", "Ergonomic wrist rest", "Titanium coated switches"],
+        "use_case": "Tactile feedback gaming with satisfying clicky feel",
+        "target_audience": "Gamers who prefer clicky tactile switches",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8934,
+      "rank": 3
+    }
+  ],
+  "smart home security camera wifi": [
+    {
+      "product_id": 30,
+      "asin": "B08CXGKP3V",
+      "title": "Ring Indoor Cam Compact Plug-In HD Security Camera with Two-Way Talk",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Home Security Cameras",
+        "key_features": ["1080p HD video", "Two-way audio", "Motion detection", "Night vision", "Alexa compatible"],
+        "use_case": "Indoor home monitoring with remote viewing and motion alerts",
+        "target_audience": "Homeowners and renters",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9156,
+      "rank": 1
+    },
+    {
+      "product_id": 31,
+      "asin": "B09LMFMV7G",
+      "title": "Arlo Pro 4 Spotlight Camera 2K Video Wire-Free Color Night Vision",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Home Security Cameras",
+        "key_features": ["2K HDR video", "Color night vision", "Integrated spotlight", "Wire-free", "6-month battery"],
+        "use_case": "Outdoor security monitoring without running power cables",
+        "target_audience": "Homeowners seeking wire-free outdoor security",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8987,
+      "rank": 2
+    },
+    {
+      "product_id": 32,
+      "asin": "B07RNK2YFC",
+      "title": "Google Nest Cam IQ Indoor 4K Home Security Camera",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Home Security Cameras",
+        "key_features": ["4K sensor", "HDR streaming", "Familiar face detection", "Google Assistant", "Supersight zoom"],
+        "use_case": "AI-powered indoor security with intelligent person and face recognition",
+        "target_audience": "Google ecosystem users wanting intelligent home security",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.8812,
+      "rank": 3
+    }
+  ],
+  "portable USB-C charger": [
+    {
+      "product_id": 40,
+      "asin": "B08LMTLWG5",
+      "title": "Anker 737 Power Bank 24000mAh 140W Two-Way Fast Charging",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Portable Chargers",
+        "key_features": ["140W output", "24000mAh capacity", "USB-C PD 3.1", "Smart display", "Charges laptops"],
+        "use_case": "High-wattage portable charging for laptops, tablets, and phones simultaneously",
+        "target_audience": "Frequent travelers and remote workers",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9234,
+      "rank": 1
+    },
+    {
+      "product_id": 41,
+      "asin": "B09ZNDBRZR",
+      "title": "INIU Power Bank 20000mAh 65W USB C Portable Charger PD Fast Charging",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Portable Chargers",
+        "key_features": ["65W USB-C PD", "20000mAh", "3 output ports", "LED indicator", "Slim profile"],
+        "use_case": "Compact high-capacity charging for multiple devices on long trips",
+        "target_audience": "Commuters and travelers",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9067,
+      "rank": 2
+    }
+  ],
+  "4K monitor ultrawide curved display": [
+    {
+      "product_id": 50,
+      "asin": "B08DFWQZ3N",
+      "title": "LG 34GP950G-B UltraGear 34-inch 21:9 Curved WQHD Nano IPS 1ms 144Hz",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Computer Monitors",
+        "key_features": ["34-inch ultrawide", "WQHD 3440x1440", "144Hz 1ms", "Nano IPS", "G-Sync Compatible"],
+        "use_case": "Immersive ultrawide gaming and multitasking with high refresh rate",
+        "target_audience": "Gamers and productivity users",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9189,
+      "rank": 1
+    },
+    {
+      "product_id": 51,
+      "asin": "B09HTZV9KR",
+      "title": "Samsung 49-Inch Odyssey G9 DQHD 240Hz 1ms Curved Gaming Monitor",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Computer Monitors",
+        "key_features": ["49-inch DQHD", "240Hz refresh", "1000R curve", "G-Sync Ultimate", "HDR1000"],
+        "use_case": "Extreme ultrawide gaming with dual QHD resolution for competitive advantage",
+        "target_audience": "Hardcore gamers and streamers",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9012,
+      "rank": 2
+    }
+  ],
+  "fitness tracker heart rate GPS": [
+    {
+      "product_id": 60,
+      "asin": "B09G3ZCDRW",
+      "title": "Garmin Forerunner 955 Solar GPS Running Smartwatch with Training Plans",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Fitness Trackers",
+        "key_features": ["Solar charging", "Built-in GPS", "Training plans", "VO2 max", "Up to 42-day battery"],
+        "use_case": "Advanced GPS training analysis for serious runners and triathletes",
+        "target_audience": "Serious athletes and marathon runners",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9267,
+      "rank": 1
+    },
+    {
+      "product_id": 61,
+      "asin": "B09G3N7D1N",
+      "title": "Fitbit Charge 5 Advanced Health and Fitness Tracker with EDA Sensor",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Fitness Trackers",
+        "key_features": ["EDA stress sensor", "ECG app", "GPS", "SpO2 monitor", "Daily readiness score"],
+        "use_case": "Holistic daily health tracking including stress, sleep, and activity metrics",
+        "target_audience": "Health-conscious individuals and casual fitness users",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9089,
+      "rank": 2
+    }
+  ],
+  "wireless earbuds true wireless": [
+    {
+      "product_id": 70,
+      "asin": "B09JQMJHXY",
+      "title": "Apple AirPods Pro 2nd Generation with MagSafe Charging Case USB-C",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Wireless Earbuds",
+        "key_features": ["H2 chip ANC", "Adaptive audio", "6-hour ANC battery", "Conversation awareness", "Spatial audio"],
+        "use_case": "Seamless ANC earbuds deeply integrated with Apple devices",
+        "target_audience": "iPhone users wanting premium wireless audio",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9345,
+      "rank": 1
+    },
+    {
+      "product_id": 71,
+      "asin": "B09MV6X78M",
+      "title": "Samsung Galaxy Buds2 Pro True Wireless Earbuds Intelligent ANC",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Wireless Earbuds",
+        "key_features": ["360 Audio", "Intelligent ANC", "Hi-Fi 24-bit audio", "Ear detection", "IPX7 water resistant"],
+        "use_case": "High-fidelity wireless audio with intelligent noise cancellation for Samsung users",
+        "target_audience": "Samsung Galaxy users and Android audiophiles",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9178,
+      "rank": 2
+    },
+    {
+      "product_id": 72,
+      "asin": "B09JKMDWQP",
+      "title": "Sony WF-1000XM5 Industry Leading Noise Canceling True Wireless Earbuds",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Wireless Earbuds",
+        "key_features": ["Industry-leading ANC", "LDAC codec", "8-hour battery", "Auto NC optimizer", "Crystal clear calling"],
+        "use_case": "Best-in-class noise cancellation in compact truly wireless form factor",
+        "target_audience": "Audio enthusiasts and frequent commuters",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9023,
+      "rank": 3
+    }
+  ],
+  "USB-C hub multiport adapter": [
+    {
+      "product_id": 80,
+      "asin": "B09G98MLQR",
+      "title": "Anker 655 USB-C Hub 8-in-1 with 100W Power Delivery 4K HDMI",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "USB Hubs & Adapters",
+        "key_features": ["8 ports", "100W PD passthrough", "4K 60Hz HDMI", "USB 3.0", "SD/microSD slots"],
+        "use_case": "Expand laptop connectivity with single-cable docking via USB-C",
+        "target_audience": "MacBook and laptop users needing legacy ports",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9412,
+      "rank": 1
+    }
+  ],
+  "smart speaker voice assistant Alexa": [
+    {
+      "product_id": 90,
+      "asin": "B07XKF75B8",
+      "title": "Echo (4th Gen) With premium sound, smart home hub, and Alexa",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Smart Speakers",
+        "key_features": ["Dolby Audio", "Built-in Zigbee hub", "Alexa", "Temperature sensor", "Spherical design"],
+        "use_case": "Central smart home control hub with premium room-filling audio",
+        "target_audience": "Smart home enthusiasts and Alexa ecosystem users",
+        "complexity": "Beginner",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9289,
+      "rank": 1
+    }
+  ],
+  "drone camera stabilization 4K": [
+    {
+      "product_id": 100,
+      "asin": "B09J8QDHXW",
+      "title": "DJI Mini 3 Pro Drone with RC-N1 Controller 4K Video 48MP",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Camera Drones",
+        "key_features": ["4K/60fps", "48MP RAW", "True vertical shooting", "34-min flight time", "Obstacle sensing"],
+        "use_case": "Professional aerial photography under FAA 250g weight limit",
+        "target_audience": "Travel photographers and content creators",
+        "complexity": "Intermediate",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9356,
+      "rank": 1
+    },
+    {
+      "product_id": 101,
+      "asin": "B09BQ4ZQCK",
+      "title": "DJI Air 2S Drone with Master Shots 5.4K Video 1-inch CMOS",
+      "tags": {
+        "category": "Electronics",
+        "subcategory": "Camera Drones",
+        "key_features": ["5.4K 30fps", "1-inch CMOS", "4-direction obstacle sensing", "31-min flight", "Master Shots AI"],
+        "use_case": "Cinematic aerial video with large sensor and intelligent shooting modes",
+        "target_audience": "Videographers and professional aerial photographers",
+        "complexity": "Advanced",
+        "sentiment": "Positive"
+      },
+      "similarity_score": 0.9134,
+      "rank": 2
+    }
+  ]
+}

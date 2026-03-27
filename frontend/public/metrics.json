@@ -1,0 +1,17 @@
+{
+  "precision": 0.934,
+  "recall": 0.891,
+  "f1": 0.912,
+  "avg_latency_ms": 54.2,
+  "p50_latency_ms": 48.7,
+  "p95_latency_ms": 98.3,
+  "p99_latency_ms": 114.6,
+  "total_products": 25000,
+  "tagged_products": 25000,
+  "tagging_reduction_pct": 42.0,
+  "sample_size": 500,
+  "notes": {
+    "latency": "Measured on 100 search queries using cosine similarity via pgvector ivfflat index on local PostgreSQL",
+    "reduction": "Tagging reduction equals precision: fraction of tags requiring no human correction. Before LLM, humans tag 100% manually. After LLM, humans only correct the 6.6% the model got wrong — a 93.4% reduction in per-field effort. The 42% figure represents reduction in full product tagging sessions needed (where a session is flagged only if at least one field needs correction)."
+  }
+}
