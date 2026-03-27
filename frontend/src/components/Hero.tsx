@@ -14,8 +14,8 @@ export function Hero() {
           AI Content Intelligence Platform
         </p>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Keyword-based metadata extraction and semantic search over large-scale unstructured product content.
-          Reduces manual tagging workload by 93.7% measured on a held-out 500-item human-labeled sample.
+          Tag extraction and semantic search over 25,000 Amazon product listings.
+          93.7% accuracy against human labels, p95 search at 7.7ms.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">
