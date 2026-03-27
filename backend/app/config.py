@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     embedding_model: str = "all-MiniLM-L6-v2"
     embedding_dim: int = 384
-    llm_model: str = "claude-sonnet-4-20250514"
+    llm_model: str = ""
     search_top_k_default: int = 10
     cors_origins: list[str] = ["http://localhost:5173", "https://puneethkotha.github.io"]
 

@@ -1,7 +1,7 @@
 """
 Batch LLM metadata extraction for all products without tags.
 
-Uses Claude claude-sonnet-4-20250514 to extract structured tags for each product.
+Uses the Anthropic API to extract structured tags for each product.
 Implements exponential-backoff retry and rate limiting to stay within API limits.
 
 Usage:

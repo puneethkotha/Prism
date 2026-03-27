@@ -3,7 +3,7 @@ Rule-based metadata extractor that produces the same JSON schema as the LLM pipe
 
 This runs entirely locally — no API key required. Tags are derived deterministically
 from real Amazon product text and category hierarchy. This is the initial tagging pass;
-the LLM pipeline (extract_tags.py) can be run later to re-tag with Claude Sonnet.
+the LLM pipeline (extract_tags.py) can be run later to re-tag using the Anthropic API.
 
 Schema produced:
     category, subcategory, key_features, use_case, target_audience, complexity, sentiment

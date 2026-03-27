@@ -76,7 +76,7 @@ All endpoints are served by the FastAPI backend.
 
 ### `POST /extract`
 
-Run tag extraction on arbitrary text. Returns structured tags and latency. Uses the keyword classifier by default; swap in `llm_service` in the router to use Claude Sonnet when an API key is available.
+Run tag extraction on arbitrary text. Returns structured tags and latency. Uses the keyword classifier by default; swap in `llm_service` in the router to use the LLM extractor when an Anthropic API key is available.
 
 ```bash
 curl -X POST http://localhost:8000/extract \
@@ -200,7 +200,7 @@ cp ../.env.example .env
 # Step 1: load 25K products from HuggingFace
 python scripts/load_dataset.py
 
-# Step 2a: extract tags with Claude Sonnet (requires API key, takes several hours)
+# Step 2a: extract tags via LLM (requires API key, takes several hours)
 python scripts/extract_tags.py --workers 5
 
 # Step 2b: or tag with the local rule-based extractor (instant, no API key)
@@ -262,7 +262,7 @@ Prism/
 │   │   └── services/            tag extraction, embedding, cosine search
 │   ├── scripts/
 │   │   ├── load_dataset.py      Download and insert Amazon data
-│   │   ├── extract_tags.py      Batch extraction via Claude Sonnet (requires ANTHROPIC_API_KEY)
+│   │   ├── extract_tags.py      Batch LLM extraction (requires ANTHROPIC_API_KEY)
 │   │   ├── tag_from_text.py     Rule-based tagger (same schema, no API key)
 │   │   ├── embed.py             Sentence embedding generation and storage
 │   │   ├── evaluate.py          Precision/recall/F1 + latency benchmark
