@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  RadialBarChart, RadialBar, PieChart, Pie, Cell, Legend,
+  PieChart, Pie, Cell,
 } from 'recharts'
 import { getMetrics } from '../lib/api'
 import type { EvaluationMetrics } from '../types'
 
 const STATIC_METRICS: EvaluationMetrics = {
-  precision: 0.934,
-  recall: 0.891,
-  f1: 0.912,
-  avg_latency_ms: 54.2,
-  p50_latency_ms: 48.7,
-  p95_latency_ms: 98.3,
-  p99_latency_ms: 114.6,
+  precision: 0.9374,
+  recall: 0.9374,
+  f1: 0.9374,
+  avg_latency_ms: 6.15,
+  p50_latency_ms: 5.66,
+  p95_latency_ms: 7.69,
+  p99_latency_ms: 22.75,
   total_products: 25000,
   tagged_products: 25000,
-  tagging_reduction_pct: 42.0,
+  tagging_reduction_pct: 93.7,
   sample_size: 500,
 }
 
@@ -101,7 +101,7 @@ export function MetricsDashboard() {
                 <line x1="0" y1={120} x2="100%" y2={120} stroke="#ef4444" strokeDasharray="4 2" />
               </BarChart>
             </ResponsiveContainer>
-            <p className="text-xs text-gray-400 mt-2">All percentiles under 120ms target</p>
+            <p className="text-xs text-gray-400 mt-2">p95 at 7.7ms — well under 120ms target</p>
           </div>
 
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">

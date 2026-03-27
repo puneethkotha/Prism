@@ -37,7 +37,7 @@ def main():
     parser.add_argument("--batch-size", type=int, default=512)
     args = parser.parse_args()
 
-    conn = psycopg2.connect(settings.database_url_sync)
+    conn = psycopg2.connect(settings.psycopg2_dsn)
     cur = conn.cursor()
 
     cur.execute("""

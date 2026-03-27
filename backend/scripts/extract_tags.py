@@ -84,7 +84,7 @@ def main():
     parser.add_argument("--workers", type=int, default=5)
     args = parser.parse_args()
 
-    conn = psycopg2.connect(settings.database_url_sync)
+    conn = psycopg2.connect(settings.psycopg2_dsn)
     cur = conn.cursor()
 
     cur.execute("""
@@ -117,7 +117,7 @@ def main():
             log.warning(f"Failed product {product_id}: {exc}")
             return None
 
-    write_conn = psycopg2.connect(settings.database_url_sync)
+    write_conn = psycopg2.connect(settings.psycopg2_dsn)
     write_cur = write_conn.cursor()
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:

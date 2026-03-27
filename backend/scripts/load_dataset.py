@@ -46,7 +46,7 @@ def build_raw_text(item: dict) -> str:
 
 def main():
     log.info("Connecting to PostgreSQL...")
-    conn = psycopg2.connect(settings.database_url_sync)
+    conn = psycopg2.connect(settings.psycopg2_dsn)
     cur = conn.cursor()
 
     cur.execute("CREATE EXTENSION IF NOT EXISTS vector")

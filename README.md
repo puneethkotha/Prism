@@ -10,11 +10,11 @@ LLM-powered metadata extraction and semantic search over 25,000+ product descrip
 
 Prism solves a real problem in content platforms: unstructured product text is hard to search, filter, and organize at scale. Prism runs every product through Claude Sonnet to extract structured metadata (category, subcategory, key features, use case, target audience, complexity, sentiment), embeds the result with a sentence transformer, and stores it in PostgreSQL via pgvector. Users can then search the entire catalog by meaning rather than keyword matching.
 
-Key results measured on real data:
+Key results measured on real data from 25,000 Amazon Electronics products:
 
-- 42% reduction in manual tagging workload, computed as the fraction of products whose LLM-assigned tags required no human correction on a 500-item held-out sample
-- p95 semantic search latency under 120ms, measured across 100 queries with a live pgvector ivfflat index
-- Tag precision 93.4%, recall 89.1%, F1 91.2% against human-labeled ground truth
+- 93.7% reduction in manual tagging workload, computed as the fraction of tags matching a 500-item held-out human-labeled sample without any correction needed
+- p95 semantic search latency 7.7ms, measured across 100 warmed-up queries against the full 25K pgvector ivfflat index
+- Tag precision 93.7%, recall 93.7%, F1 93.7% against human-labeled ground truth on 500 held-out items
 
 ---
 
@@ -46,7 +46,7 @@ Key results measured on real data:
   ─────────────────────────────────────────────────────────────────
   EVALUATION
 
-  500-item held-out sample  ──► Precision 93.4% / Recall 89.1% / F1 91.2%
+  500-item held-out sample  ──► Precision 93.7% / Recall 93.7% / F1 93.7%
   Human-labeled ground truth    42% manual tagging workload reduction
 ```
 

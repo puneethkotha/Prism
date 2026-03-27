@@ -14,5 +14,10 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
+    @property
+    def psycopg2_dsn(self) -> str:
+        """Raw DSN for psycopg2 — strips the SQLAlchemy driver prefix."""
+        return self.database_url_sync.replace("postgresql+psycopg2://", "postgresql://")
+
 
 settings = Settings()

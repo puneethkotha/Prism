@@ -109,7 +109,7 @@ def search(cur, model: SentenceTransformer, query: str, k: int = 8) -> list[dict
 
 
 def main():
-    conn = psycopg2.connect(settings.database_url_sync)
+    conn = psycopg2.connect(settings.psycopg2_dsn)
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     cur.execute("SELECT COUNT(*) FROM product_tags WHERE embedding IS NOT NULL")

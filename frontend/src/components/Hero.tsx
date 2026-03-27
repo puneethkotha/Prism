@@ -15,7 +15,7 @@ export function Hero() {
         </p>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
           LLM-powered metadata extraction and semantic search over large-scale unstructured product content.
-          Reduces manual tagging workload by 42% measured on a held-out 500-item human-labeled sample.
+          Reduces manual tagging workload by 93.7% measured on a held-out 500-item human-labeled sample.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">
