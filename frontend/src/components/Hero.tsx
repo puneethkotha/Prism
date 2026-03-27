@@ -15,7 +15,7 @@ export function Hero() {
         </p>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
           Tag extraction and semantic search over 25,000 Amazon product listings.
-          93.7% accuracy against human labels, p95 search at 7.7ms.
+          93.1% precision against human labels, p95 search at 13.7ms.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">

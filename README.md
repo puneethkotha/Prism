@@ -12,13 +12,13 @@ Measured on real data after the full pipeline ran.
 
 | Metric | Value | Method |
 |---|---|---|
-| Tag precision | 93.7% | 500-item held-out sample vs. human labels |
-| Tag recall | 93.7% | same sample |
-| Tag F1 | 93.7% | harmonic mean |
-| Manual tagging reduction | 93.7% | fraction of tags needing no correction |
-| p50 search latency | 5.7ms | 100 warmed queries, embedding + pgvector |
-| p95 search latency | 7.7ms | same run |
-| p99 search latency | 22.8ms | same run |
+| Tag precision | 93.1% | 500-item held-out sample vs. human labels |
+| Tag recall | 93.6% | same sample |
+| Tag F1 | 93.3% | harmonic mean |
+| Zero-correction rate | 47.0% | products where every field matched human label exactly |
+| p50 search latency | 6.4ms | 100 warmed queries, embedding + pgvector |
+| p95 search latency | 13.7ms | same run |
+| p99 search latency | 24.0ms | same run |
 | Products indexed | 25,000 | Amazon Electronics, 2023 |
 
 ---

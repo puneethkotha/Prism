@@ -149,10 +149,10 @@ export function ArchitectureDiagram() {
         <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm mb-8">
           <PhaseLabel label="Evaluation" badge="500-item held-out sample" />
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <StatPill value="93.7%" label="Precision" />
-            <StatPill value="93.7%" label="Recall" />
-            <StatPill value="93.7%" label="F1" />
-            <StatPill value="93.7%" label="Tagging reduction" />
+            <StatPill value="93.1%" label="Precision" />
+            <StatPill value="93.6%" label="Recall" />
+            <StatPill value="93.3%" label="F1" />
+            <StatPill value="47.0%" label="Zero-correction rate" />
           </div>
           <p className="text-xs text-gray-400 mt-3 leading-relaxed">
             Human labels derived from product text using stricter subcategory rules and a broader sentiment keyword set than the tagger.

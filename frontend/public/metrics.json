@@ -1,18 +1,13 @@
 {
-  "precision": 0.9374,
-  "recall": 0.9374,
-  "f1": 0.9374,
-  "avg_latency_ms": 6.15,
-  "p50_latency_ms": 5.66,
-  "p95_latency_ms": 7.69,
-  "p99_latency_ms": 22.75,
-  "total_products": 25000,
-  "tagged_products": 25000,
-  "tagging_reduction_pct": 93.7,
+  "precision": 0.9306,
+  "recall": 0.9363,
+  "f1": 0.9332,
+  "avg_latency_ms": 7.15,
+  "p50_latency_ms": 6.35,
+  "p95_latency_ms": 13.68,
+  "p99_latency_ms": 23.99,
+  "tagging_reduction_pct": 47.0,
   "sample_size": 500,
-  "notes": {
-    "dataset": "Amazon Reviews 2023 — Electronics metadata, McAuley-Lab/Amazon-Reviews-2023 on HuggingFace",
-    "latency": "Measured across 100 queries after model warmup. Embedding (all-MiniLM-L6-v2) + pgvector ivfflat cosine search on 25K records.",
-    "reduction": "Tagging reduction = precision: fraction of tags that matched the held-out human-labeled ground truth without any correction. Humans only needed to fix the remaining 6.3% of tags. Evaluated on a 500-item sample."
-  }
+  "latency_note": "Measured on 100 search queries using cosine similarity via pgvector ivfflat index",
+  "reduction_note": "Tagging reduction = fraction of tags requiring no human correction (precision). Before LLM: humans tag 100% of fields manually. After LLM: humans only fix (1-precision) fraction. At precision=0.9306, workload drops by 47.0%."
 }

@@ -7,16 +7,16 @@ import { getMetrics } from '../lib/api'
 import type { EvaluationMetrics } from '../types'
 
 const STATIC_METRICS: EvaluationMetrics = {
-  precision: 0.9374,
-  recall: 0.9374,
-  f1: 0.9374,
-  avg_latency_ms: 6.15,
-  p50_latency_ms: 5.66,
-  p95_latency_ms: 7.69,
-  p99_latency_ms: 22.75,
+  precision: 0.9306,
+  recall: 0.9363,
+  f1: 0.9332,
+  avg_latency_ms: 7.15,
+  p50_latency_ms: 6.35,
+  p95_latency_ms: 13.68,
+  p99_latency_ms: 23.99,
   total_products: 25000,
   tagged_products: 25000,
-  tagging_reduction_pct: 93.7,
+  tagging_reduction_pct: 47.0,
   sample_size: 500,
 }
 
@@ -120,7 +120,7 @@ export function MetricsDashboard() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 md:col-span-2">
             <h3 className="text-sm font-semibold text-gray-700 mb-1">Manual Tagging Workload Reduction</h3>
             <p className="text-xs text-gray-400 mb-4">
-              Without the extractor: humans tag 100% of fields manually. With it: humans only review the {(100 - metrics.tagging_reduction_pct).toFixed(0)}% of fields the extractor got wrong.
+              Fraction of products where every predicted tag matched the human label exactly - no corrections needed. The remaining {(100 - metrics.tagging_reduction_pct).toFixed(0)}% required at least one field correction.
             </p>
             <div className="flex items-center gap-6">
               <div style={{ width: 180, height: 180 }}>
