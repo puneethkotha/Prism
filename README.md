@@ -1,6 +1,6 @@
 # Prism - AI Content Intelligence Platform
 
-Metadata extraction and semantic search over 25,000 Amazon Electronics product descriptions. Extracts structured tags per product using an LLM, encodes them as sentence embeddings, and serves sub-10ms cosine similarity search via pgvector.
+Metadata extraction and semantic search over 25,000 Amazon Electronics product descriptions. Extracts structured tags per product from raw product text, encodes them as sentence embeddings, and serves sub-10ms cosine similarity search via pgvector.
 
 **Live demo:** [puneethkotha.github.io/Prism](https://puneethkotha.github.io/Prism)
 
@@ -30,7 +30,7 @@ Measured on real data after the full pipeline ran.
   ─────────────────────────────────────────────────────────────────────────
 
   HuggingFace                  Tag Extractor              PostgreSQL 16
-  McAuley-Lab/                 Claude Sonnet    ─────────► products
+  McAuley-Lab/                 Tag Extractor    ─────────► products
   Amazon-Reviews-2023   ──────► (or rule-based)            id  asin  title
   raw_meta_Electronics          POST /extract              raw_text
   25,000 products                                          created_at
@@ -76,7 +76,7 @@ All endpoints are served by the FastAPI backend.
 
 ### `POST /extract`
 
-Run LLM extraction on arbitrary text. Returns structured tags and latency.
+Run tag extraction on arbitrary text. Returns structured tags and latency. Uses the keyword classifier by default; swap in `llm_service` in the router to use Claude Sonnet when an API key is available.
 
 ```bash
 curl -X POST http://localhost:8000/extract \
@@ -156,7 +156,7 @@ Database connectivity check. Returns product and tag counts.
 
 | Layer | Technology |
 |---|---|
-| Extraction LLM | Claude claude-sonnet-4-20250514 via Anthropic SDK |
+| Extraction | Keyword classifier (`tag_from_text.py`); pluggable LLM interface via `extract_tags.py` |
 | Embeddings | all-MiniLM-L6-v2 (sentence-transformers, 384-dim) |
 | Vector index | pgvector 0.3 ivfflat, cosine distance, lists=100 |
 | Database | PostgreSQL 16 |
@@ -259,10 +259,10 @@ Prism/
 │   │   ├── models.py            Product, ProductTag ORM models
 │   │   ├── schemas.py           Pydantic request/response types
 │   │   ├── routers/             extract, search, products, metrics endpoints
-│   │   └── services/            LLM extraction, embedding, cosine search
+│   │   └── services/            tag extraction, embedding, cosine search
 │   ├── scripts/
 │   │   ├── load_dataset.py      Download and insert Amazon data
-│   │   ├── extract_tags.py      Batch LLM extraction with retry + rate limiting
+│   │   ├── extract_tags.py      Batch extraction via Claude Sonnet (requires ANTHROPIC_API_KEY)
 │   │   ├── tag_from_text.py     Rule-based tagger (same schema, no API key)
 │   │   ├── embed.py             Sentence embedding generation and storage
 │   │   ├── evaluate.py          Precision/recall/F1 + latency benchmark

@@ -82,7 +82,7 @@ function StatPill({ value, label }: { value: string; label: string }) {
 
 const STEPS = [
   { num: '01', title: 'Ingest', desc: 'Amazon Reviews 2023 Electronics metadata downloaded from HuggingFace. 25,000 products stored as title + raw_text in PostgreSQL.', accent: 'slate' as const },
-  { num: '02', title: 'Extract', desc: 'Claude Sonnet reads each raw_text and outputs structured JSON: category, subcategory, key_features, use_case, target_audience, complexity, sentiment.', accent: 'violet' as const },
+  { num: '02', title: 'Extract', desc: 'Keyword classifier (tag_from_text.py) reads each raw_text and outputs structured JSON: category, subcategory, key_features, use_case, target_audience, complexity, sentiment. The POST /extract endpoint supports swapping in an LLM extractor when an API key is available.', accent: 'violet' as const },
   { num: '03', title: 'Embed', desc: 'all-MiniLM-L6-v2 encodes title + tag fields into a 384-dim normalized vector per product. MPS-accelerated; 25K products done in 34 seconds.', accent: 'indigo' as const },
   { num: '04', title: 'Index', desc: 'Vectors stored in pgvector with an ivfflat cosine index (lists=100). Enables approximate nearest-neighbour search inside PostgreSQL with no external vector DB.', accent: 'blue' as const },
   { num: '05', title: 'Serve', desc: 'GET /search encodes the query at request time, runs a single cosine similarity query, and returns top-K results with scores. p95 latency: 7.7ms.', accent: 'emerald' as const },
@@ -112,7 +112,7 @@ export function ArchitectureDiagram() {
           <div className="flex flex-wrap items-center gap-1">
             <Node label="Amazon Reviews 2023" sub="25K Electronics products" tag="HuggingFace" accent="slate" />
             <Arrow />
-            <Node label="Tag Extractor" sub="Claude Sonnet or rule-based" tag="POST /extract" accent="violet" />
+            <Node label="Tag Extractor" sub="Keyword classifier" tag="tag_from_text.py" accent="violet" />
             <Arrow />
             <Node label="products" sub="id · asin · title · raw_text" tag="PostgreSQL" accent="slate" />
             <Arrow />
@@ -214,7 +214,7 @@ export function ArchitectureDiagram() {
               <div className="text-xs font-mono font-semibold text-gray-400 uppercase tracking-widest mb-3">Stack</div>
               <div className="space-y-1">
                 {[
-                  ['LLM', 'Claude Sonnet · Anthropic SDK'],
+                  ['Extractor', 'Keyword classifier · pluggable LLM interface'],
                   ['Embeddings', 'all-MiniLM-L6-v2 · 384-dim'],
                   ['Vector index', 'pgvector ivfflat · cosine'],
                   ['Backend', 'FastAPI · asyncpg · SQLAlchemy'],

@@ -14,13 +14,13 @@ export function Hero() {
           AI Content Intelligence Platform
         </p>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          LLM-powered metadata extraction and semantic search over large-scale unstructured product content.
+          Keyword-based metadata extraction and semantic search over large-scale unstructured product content.
           Reduces manual tagging workload by 93.7% measured on a held-out 500-item human-labeled sample.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">
           {[
-            { label: 'Claude Sonnet', sub: 'Extraction LLM' },
+            { label: 'Tag Extractor', sub: 'Keyword classifier' },
             { label: 'pgvector', sub: 'Vector DB' },
             { label: 'all-MiniLM-L6-v2', sub: 'Embeddings' },
             { label: 'FastAPI', sub: 'Backend' },

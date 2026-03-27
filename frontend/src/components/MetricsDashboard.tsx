@@ -120,7 +120,7 @@ export function MetricsDashboard() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 md:col-span-2">
             <h3 className="text-sm font-semibold text-gray-700 mb-1">Manual Tagging Workload Reduction</h3>
             <p className="text-xs text-gray-400 mb-4">
-              Before LLM: humans tag 100% of fields. After: humans only review the {(100 - metrics.tagging_reduction_pct).toFixed(0)}% the LLM got wrong.
+              Without the extractor: humans tag 100% of fields manually. With it: humans only review the {(100 - metrics.tagging_reduction_pct).toFixed(0)}% of fields the extractor got wrong.
             </p>
             <div className="flex items-center gap-6">
               <div style={{ width: 180, height: 180 }}>
