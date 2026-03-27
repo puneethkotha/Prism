@@ -101,7 +101,7 @@ export function MetricsDashboard() {
                 <line x1="0" y1={120} x2="100%" y2={120} stroke="#ef4444" strokeDasharray="4 2" />
               </BarChart>
             </ResponsiveContainer>
-            <p className="text-xs text-gray-400 mt-2">p95 at 7.7ms — well under 120ms target</p>
+            <p className="text-xs text-gray-400 mt-2">p95 at 7.7ms - well under 120ms target</p>
           </div>
 
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">

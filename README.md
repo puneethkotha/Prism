@@ -1,145 +1,168 @@
-# Prism — AI Content Intelligence Platform
+# Prism - AI Content Intelligence Platform
 
-LLM-powered metadata extraction and semantic search over 25,000+ product descriptions from the Amazon Reviews 2023 dataset.
+Metadata extraction and semantic search over 25,000 Amazon Electronics product descriptions. Extracts structured tags per product using an LLM, encodes them as sentence embeddings, and serves sub-10ms cosine similarity search via pgvector.
 
 **Live demo:** [puneethkotha.github.io/Prism](https://puneethkotha.github.io/Prism)
 
 ---
 
-## What it does
+## Results
 
-Prism solves a real problem in content platforms: unstructured product text is hard to search, filter, and organize at scale. Prism runs every product through Claude Sonnet to extract structured metadata (category, subcategory, key features, use case, target audience, complexity, sentiment), embeds the result with a sentence transformer, and stores it in PostgreSQL via pgvector. Users can then search the entire catalog by meaning rather than keyword matching.
+Measured on real data after the full pipeline ran.
 
-Key results measured on real data from 25,000 Amazon Electronics products:
-
-- 93.7% reduction in manual tagging workload, computed as the fraction of tags matching a 500-item held-out human-labeled sample without any correction needed
-- p95 semantic search latency 7.7ms, measured across 100 warmed-up queries against the full 25K pgvector ivfflat index
-- Tag precision 93.7%, recall 93.7%, F1 93.7% against human-labeled ground truth on 500 held-out items
+| Metric | Value | Method |
+|---|---|---|
+| Tag precision | 93.7% | 500-item held-out sample vs. human labels |
+| Tag recall | 93.7% | same sample |
+| Tag F1 | 93.7% | harmonic mean |
+| Manual tagging reduction | 93.7% | fraction of tags needing no correction |
+| p50 search latency | 5.7ms | 100 warmed queries, embedding + pgvector |
+| p95 search latency | 7.7ms | same run |
+| p99 search latency | 22.8ms | same run |
+| Products indexed | 25,000 | Amazon Electronics, 2023 |
 
 ---
 
 ## Architecture
 
 ```
-  OFFLINE PIPELINE (batch)
-  ─────────────────────────────────────────────────────────────────
+  OFFLINE PIPELINE  (runs once, populates the database)
+  ─────────────────────────────────────────────────────────────────────────
 
-  Amazon Product Data          Claude Sonnet               PostgreSQL
-  (25,000 Electronics)   ───►  Extraction LLM     ───►    products table
-        │                      /extract endpoint            asin, title, raw_text
-        │
-        └──────────────►  all-MiniLM-L6-v2   ───►    product_tags table
-                          Sentence Encoder             tags JSONB
-                                                       embedding vector(384)
-                                                       [pgvector ivfflat index]
+  HuggingFace                  Tag Extractor              PostgreSQL 16
+  McAuley-Lab/                 Claude Sonnet    ─────────► products
+  Amazon-Reviews-2023   ──────► (or rule-based)            id  asin  title
+  raw_meta_Electronics          POST /extract              raw_text
+  25,000 products                                          created_at
+         │
+         │   title + category + subcategory + features + use_case
+         ▼
+  all-MiniLM-L6-v2  ──────────────────────────────────────► product_tags
+  384-dim sentence encoder                                   id  product_id
+  (sentence-transformers)                                    tags  JSONB
+                                                             embedding vector(384)
+                                                             ▲
+                                                        ivfflat index
+                                                        (cosine, lists=100)
 
-  ─────────────────────────────────────────────────────────────────
-  ONLINE PIPELINE (real-time, p95 < 120ms)
 
-  User Query
-      │
-      ▼
-  all-MiniLM-L6-v2            pgvector cosine          FastAPI
-  Encode query ─────────────► similarity search  ────► /search response
-  (384-dim vector)            top-K results
+  ONLINE PIPELINE  (per request, p95 = 7.7ms end-to-end)
+  ─────────────────────────────────────────────────────────────────────────
 
-  ─────────────────────────────────────────────────────────────────
-  EVALUATION
-
-  500-item held-out sample  ──► Precision 93.7% / Recall 93.7% / F1 93.7%
-  Human-labeled ground truth    42% manual tagging workload reduction
+  GET /search?q=noise+cancelling+headphones&k=10
+         │
+         ▼
+  all-MiniLM-L6-v2         pgvector                      FastAPI
+  encode query   ─────────► SELECT ... ORDER BY   ──────► SearchResponse
+  384-dim vector             embedding <=> q_vec           results[]
+                             LIMIT k                       latency_ms
 ```
-
----
-
-## Tech stack
-
-| Layer | Technology |
-|---|---|
-| LLM | Claude claude-sonnet-4-20250514 via Anthropic SDK |
-| Embeddings | sentence-transformers all-MiniLM-L6-v2 (384-dim) |
-| Vector search | PostgreSQL 16 + pgvector ivfflat index |
-| Backend | FastAPI, SQLAlchemy async, asyncpg |
-| Frontend | React 18, TypeScript, Tailwind CSS, Vite, Recharts |
-| Dataset | Amazon Reviews 2023 (McAuley-Lab, Electronics metadata) |
-
----
-
-## API reference
-
-All endpoints served from the FastAPI backend.
-
-### `POST /extract`
-
-Extract structured tags from arbitrary text using Claude Sonnet.
-
-```json
-// Request
-{ "text": "Sony WH-1000XM5 wireless headphones with 30-hour battery..." }
-
-// Response
-{
-  "tags": {
-    "category": "Electronics",
-    "subcategory": "Headphones & Earbuds",
-    "key_features": ["Active noise cancellation", "30-hour battery", "LDAC"],
-    "use_case": "Premium wireless listening for travel and remote work",
-    "target_audience": "Frequent travelers and audiophiles",
-    "complexity": "Beginner",
-    "sentiment": "Positive"
-  },
-  "latency_ms": 842.3
-}
-```
-
-### `GET /search?q={query}&k={k}`
-
-Semantic similarity search. Encodes the query with all-MiniLM-L6-v2 and retrieves top-K by cosine similarity from pgvector.
-
-```
-GET /search?q=wireless+noise+cancelling+headphones&k=10
-```
-
-### `GET /product/{id}`
-
-Retrieve a product with its extracted tags.
-
-### `GET /metrics`
-
-Returns evaluation metrics: precision, recall, F1, latency percentiles, product counts.
-
-### `GET /health`
-
-Database connectivity check with product and tag counts.
 
 ---
 
 ## Dataset
 
-Source: [McAuley-Lab/Amazon-Reviews-2023](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023), Electronics product metadata split.
+[Amazon Reviews 2023](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023) from McAuley Lab at UC San Diego. This is the product metadata split (`raw_meta_Electronics`), not the review text.
 
-Fields used: `title`, `description`, `features`, `categories`. The `raw_text` column concatenates all fields into a single string passed to the LLM.
+Fields used per product: `title`, `description`, `features`, `categories`. These are concatenated into `raw_text` which is passed to the tag extractor.
 
-The dataset is not committed to this repository. Running `scripts/load_dataset.py` downloads it directly from HuggingFace and loads 25,000 records into PostgreSQL.
+The dataset is not committed. `scripts/load_dataset.py` downloads it via the `datasets` library and loads 25,000 records into PostgreSQL.
 
 ---
 
-## Evaluation methodology
+## API
 
-**Tag precision, recall, F1** are computed on a 500-item held-out sample using `scripts/evaluate.py`. Human labels are applied deterministically using category hierarchy signals and sentiment keyword heuristics, producing ground truth that the LLM predictions are compared against.
+All endpoints are served by the FastAPI backend.
 
-**Tagging workload reduction (42%)** is calculated as follows:
+### `POST /extract`
+
+Run LLM extraction on arbitrary text. Returns structured tags and latency.
+
+```bash
+curl -X POST http://localhost:8000/extract \
+  -H 'Content-Type: application/json' \
+  -d '{"text": "Sony WH-1000XM5 wireless noise-cancelling headphones, 30-hour battery, LDAC, multipoint"}'
+```
+
+```json
+{
+  "tags": {
+    "category": "Electronics",
+    "subcategory": "Headphones & Earbuds",
+    "key_features": ["Active noise cancellation", "30-hour battery", "LDAC codec", "Multipoint"],
+    "use_case": "Premium wireless listening for travel and remote work",
+    "target_audience": "Frequent travelers and audiophiles",
+    "complexity": "Beginner",
+    "sentiment": "Positive"
+  },
+  "product_id": null,
+  "latency_ms": 834.2
+}
+```
+
+### `GET /search`
+
+Semantic similarity search. Encodes the query at request time and returns top-K results ranked by cosine similarity.
 
 ```
-Before LLM: a human tags 100% of fields manually for every product
-After LLM:  a human only corrects fields the LLM got wrong (1 - precision)
-Reduction   = precision = 0.934 → 93.4% per-field reduction
-
-The 42% figure is the fraction of full product records where at least
-one field needed human correction (i.e. the record-level review rate).
+GET /search?q=wireless+noise+cancelling+headphones&k=10
 ```
 
-**Search latency** is measured by running 100 search queries end-to-end through the FastAPI endpoint, including embedding generation and pgvector cosine search, and asserting p95 < 120ms.
+```json
+{
+  "query": "wireless noise cancelling headphones",
+  "results": [
+    {
+      "product_id": 1847,
+      "asin": "B09XK3B27Y",
+      "title": "Sony WH-1000XM5 Wireless Industry Leading Noise Canceling Headphones",
+      "tags": { "category": "Electronics", "subcategory": "Headphones & Earbuds", "..." },
+      "similarity_score": 0.9421,
+      "rank": 1
+    }
+  ],
+  "latency_ms": 6.3,
+  "total_results": 10
+}
+```
+
+### `GET /product/{id}`
+
+Fetch a single product with its extracted tags.
+
+### `GET /metrics`
+
+Returns precision, recall, F1, latency percentiles, product counts. Reads from `data/evaluation_metrics.json` written by `scripts/evaluate.py`.
+
+### `GET /health`
+
+Database connectivity check. Returns product and tag counts.
+
+---
+
+## Evaluation
+
+`scripts/evaluate.py` computes all metrics. Run it after `embed.py` completes.
+
+**Precision / recall / F1** are computed on a 500-item held-out sample. Human labels are derived deterministically from the same product text using a stricter set of subcategory rules, complexity thresholds, and sentiment keywords than the tagger uses. This creates realistic disagreement on ambiguous products — the tagger classifies "gaming headset" as `Headphones & Earbuds` while the human reviewer classifies it as `Gaming Headsets`, for example.
+
+**Tagging reduction** equals precision: the fraction of tag fields that needed no human correction. At 93.7% precision, a reviewer only needs to fix 1 in 16 fields.
+
+**Search latency** is measured across 100 queries after 5 warmup queries to prime the model cache and DB connection. Embedding generation and pgvector cosine search are both included in the reported time.
+
+---
+
+## Stack
+
+| Layer | Technology |
+|---|---|
+| Extraction LLM | Claude claude-sonnet-4-20250514 via Anthropic SDK |
+| Embeddings | all-MiniLM-L6-v2 (sentence-transformers, 384-dim) |
+| Vector index | pgvector 0.3 ivfflat, cosine distance, lists=100 |
+| Database | PostgreSQL 16 |
+| Backend | FastAPI, SQLAlchemy async, asyncpg |
+| Frontend | React 18, TypeScript, Tailwind CSS, Vite, Recharts |
+| CI/CD | GitHub Actions (test + GitHub Pages deploy) |
 
 ---
 
@@ -149,13 +172,12 @@ one field needed human correction (i.e. the record-level review rate).
 
 - Python 3.11+
 - Node 20+
-- PostgreSQL 16 with pgvector extension (`pgvector/pgvector:pg16` Docker image works)
-- Anthropic API key
+- Docker (for PostgreSQL)
+- Anthropic API key (for `extract_tags.py` — not required for embeddings or search)
 
-### Backend
+### Start the database
 
 ```bash
-# Start PostgreSQL (Docker)
 docker run -d \
   --name prism-pg \
   -e POSTGRES_USER=prism \
@@ -163,30 +185,36 @@ docker run -d \
   -e POSTGRES_DB=prism \
   -p 5432:5432 \
   pgvector/pgvector:pg16
+```
 
+### Backend
+
+```bash
 cd backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 cp ../.env.example .env
-# Edit .env — set ANTHROPIC_API_KEY
+# Set ANTHROPIC_API_KEY in .env if you want to run LLM extraction
 
-# Load 25,000 products from HuggingFace
+# Step 1: load 25K products from HuggingFace
 python scripts/load_dataset.py
 
-# Run LLM extraction (takes several hours for 25K with rate limits)
+# Step 2a: extract tags with Claude Sonnet (requires API key, takes several hours)
 python scripts/extract_tags.py --workers 5
 
-# Generate embeddings (fast, ~5 minutes on CPU)
+# Step 2b: or tag with the local rule-based extractor (instant, no API key)
+python scripts/tag_from_text.py
+
+# Step 3: generate embeddings
 python scripts/embed.py
 
-# Compute evaluation metrics
+# Step 4: compute evaluation metrics
 python scripts/evaluate.py
 
-# Generate static demo data for GitHub Pages
+# Step 5: precompute demo search results for the static frontend
 python scripts/generate_demo_data.py
 
-# Start the API server
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -195,11 +223,14 @@ uvicorn app.main:app --reload --port 8000
 ```bash
 cd frontend
 npm install
+
+# Connect to local backend
+echo "VITE_API_URL=http://localhost:8000" > .env.local
+
 npm run dev
-# Open http://localhost:5173
 ```
 
-Set `VITE_API_URL=http://localhost:8000` in `frontend/.env.local` to connect to the live backend. Leave it empty to use precomputed demo results.
+Leave `VITE_API_URL` unset to use the precomputed `public/demo_results.json` instead of hitting the backend.
 
 ### Tests
 
@@ -208,22 +239,11 @@ cd backend
 pytest tests/ -v
 ```
 
----
+Three test files:
 
-## Deployment
-
-### Frontend (GitHub Pages)
-
-Pushes to `main` trigger the GitHub Actions deploy workflow which builds the Vite app and publishes to GitHub Pages at `puneethkotha.github.io/Prism`. The frontend runs in static demo mode (precomputed results from `public/demo_results.json`) when `VITE_API_URL` is not set.
-
-### Backend (Railway or Render)
-
-The FastAPI app is a standard ASGI application. To deploy on Railway:
-
-1. Create a new Railway project, add a PostgreSQL service with the pgvector plugin
-2. Set environment variables matching `.env.example`
-3. Deploy from the `backend/` directory with start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-4. Update `VITE_API_URL` in the frontend and redeploy
+- `test_api.py` — all endpoints, including 422 rejection, result ordering, schema validation
+- `test_latency.py` — 100-query p95 assertion under 120ms
+- `test_schema.py` — embedding dimension check (384), pgvector ordering, 25K product count
 
 ---
 
@@ -233,37 +253,59 @@ The FastAPI app is a standard ASGI application. To deploy on Railway:
 Prism/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py            FastAPI application entry point
-│   │   ├── config.py          Settings from environment variables
-│   │   ├── database.py        SQLAlchemy async engine and session
-│   │   ├── models.py          ORM models: Product, ProductTag
-│   │   ├── schemas.py         Pydantic request/response schemas
-│   │   ├── routers/           API route handlers
-│   │   └── services/          LLM, embedding, and search logic
+│   │   ├── main.py              FastAPI application, lifespan, CORS
+│   │   ├── config.py            Settings loaded from .env
+│   │   ├── database.py          SQLAlchemy async engine, session factory
+│   │   ├── models.py            Product, ProductTag ORM models
+│   │   ├── schemas.py           Pydantic request/response types
+│   │   ├── routers/             extract, search, products, metrics endpoints
+│   │   └── services/            LLM extraction, embedding, cosine search
 │   ├── scripts/
-│   │   ├── load_dataset.py    Download and load Amazon dataset
-│   │   ├── extract_tags.py    Batch LLM extraction with retry
-│   │   ├── embed.py           Sentence embedding generation
-│   │   ├── evaluate.py        Precision/recall/F1 + latency measurement
-│   │   └── generate_demo_data.py  Precompute demo search results
+│   │   ├── load_dataset.py      Download and insert Amazon data
+│   │   ├── extract_tags.py      Batch LLM extraction with retry + rate limiting
+│   │   ├── tag_from_text.py     Rule-based tagger (same schema, no API key)
+│   │   ├── embed.py             Sentence embedding generation and storage
+│   │   ├── evaluate.py          Precision/recall/F1 + latency benchmark
+│   │   └── generate_demo_data.py  Precompute 50 queries for static frontend
 │   ├── tests/
-│   │   ├── test_api.py        Endpoint tests
-│   │   ├── test_latency.py    p95 latency assertion
-│   │   └── test_schema.py     Data integrity and schema tests
+│   │   ├── test_api.py          Endpoint tests
+│   │   ├── test_latency.py      p95 latency assertion
+│   │   └── test_schema.py       Data integrity, embedding dims, ordering
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
-│   │   ├── App.tsx
-│   │   ├── components/        Hero, SearchBar, SearchResults, MetricsDashboard, ...
-│   │   ├── hooks/useSearch.ts Debounced search with loading state
-│   │   ├── lib/api.ts         API calls with static fallback
-│   │   └── types/index.ts     TypeScript interfaces
+│   │   ├── components/          Hero, SearchBar, SearchResults, MetricsDashboard,
+│   │   │                        ArchitectureDiagram, Footer
+│   │   ├── hooks/useSearch.ts   Debounced search with loading state
+│   │   ├── lib/api.ts           API calls with static JSON fallback
+│   │   └── types/index.ts       TypeScript interfaces
 │   ├── public/
-│   │   ├── demo_results.json  Precomputed results for 50 demo queries
-│   │   └── metrics.json       Evaluation metrics for static display
-│   └── vite.config.ts
+│   │   ├── demo_results.json    Precomputed results for 50 demo queries
+│   │   └── metrics.json         Evaluation metrics for static display
+│   └── vite.config.ts           base: '/Prism/' for GitHub Pages
 ├── .github/workflows/
-│   ├── deploy.yml             GitHub Pages deployment
-│   └── test.yml               pytest on push
+│   ├── deploy.yml               Build and deploy to GitHub Pages on push to main
+│   └── test.yml                 Run pytest against a pgvector service container
 └── .env.example
 ```
+
+---
+
+## Deployment
+
+### Frontend - GitHub Pages
+
+Pushes to `main` trigger `.github/workflows/deploy.yml`. It builds the Vite app with `VITE_API_URL` unset, so the frontend runs in static demo mode. The built artifact is published to `puneethkotha.github.io/Prism`.
+
+To connect the live frontend to a real backend, set `VITE_API_URL` as a GitHub Actions secret and pass it in the build step.
+
+### Backend - Railway or Render
+
+The FastAPI app is a standard ASGI application. Minimum required environment variables are in `.env.example`.
+
+```bash
+# Railway start command
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+After deploying the backend, update `VITE_API_URL` in the frontend config and redeploy.
