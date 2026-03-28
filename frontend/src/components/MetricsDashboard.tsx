@@ -38,7 +38,10 @@ export function MetricsDashboard() {
 
   useEffect(() => {
     getMetrics()
-      .then(m => { setMetrics(m); setLoaded(true) })
+      .then(m => {
+        setMetrics({ ...STATIC_METRICS, ...m })
+        setLoaded(true)
+      })
       .catch(() => setLoaded(true))
   }, [])
 

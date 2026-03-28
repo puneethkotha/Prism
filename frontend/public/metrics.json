@@ -6,6 +6,8 @@
   "p50_latency_ms": 6.35,
   "p95_latency_ms": 13.68,
   "p99_latency_ms": 23.99,
+  "total_products": 25000,
+  "tagged_products": 25000,
   "tagging_reduction_pct": 47.0,
   "sample_size": 500,
   "latency_note": "Measured on 100 search queries using cosine similarity via pgvector ivfflat index",
